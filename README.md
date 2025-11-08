@@ -97,10 +97,10 @@ class Instructions(simpleGE.Scene):
         self.directions.textLines =[
         "You are Lenny the Dog",
         "Move with left and right arrow keys.",
-        "Get as many balls as you can",
+        "Collect as many balls as you can",
         "in the time provided",
         "",
-        "Good Luck"]
+        "Good Luck!"]
         
         self.directions.center = (320, 240)
         self.directions.size = (500, 250)
