@@ -83,9 +83,75 @@ class Game(simpleGE.Scene):
             print(f"Score: {self.score}")
             self.stop()
                 
+class Instructions(simpleGE.Scene):
+    def __init__(self, prevScore):
+        super().__init__()
+                
+        self.prevScore = prevScore
+                
+        self.setImage("farm.png")
+        self.response = "Quit"
+               
+        
+        self.directions = simpleGE.MultiLabel()
+        self.directions.textLines =[
+        "You are Lenny the Dog",
+        "Move with left and right arrow keys.",
+        "Get as many balls as you can",
+        "in the time provided",
+        "",
+        "Good Luck"]
+        
+        self.directions.center = (320, 240)
+        self.directions.size = (500, 250)
+        
+        self.btnPlay = simpleGE.Button()
+        self.btnPlay.text = "Play"
+        self.btnPlay.center = (100, 400)
+        
+        self.btnQuit = simpleGE.Button()
+        self.btnQuit.text = "Quit"
+        self.btnQuit.center = (540, 400)
+        
+        self.lblScore = simpleGE.Label()
+        self.lblScore.text = "Last Score: 0"
+        self.lblScore.center = (320, 400)
+        
+        self.lblScore.text = f"Last score: {self.prevScore}"        
+                    
+        
+        self.sprites = [self.directions,
+                        self.btnPlay,
+                        self.btnQuit,
+                        self.lblScore]
+    
+            
+    def process(self):
+        if self.btnPlay.clicked:
+            self.response = "Play"
+            self.stop()
+                
+        if self.btnQuit.clicked:
+            self.response = "quit"
+            self.stop()                       
+                                  
+        
 def main():
-    game = Game()
-    game.start()
+    
+    keepGoing = True
+    lastScore = 0
+    
+    while keepGoing:
+        instructions = Instructions(lastScore)
+        instructions.start()
+        
+        if instructions.response == "Play":
+            game = Game()
+            game.start()
+            lastScore = game.score
+            
+        else:
+            keepGoing = False
     
 if __name__ == "__main__":
     main()
